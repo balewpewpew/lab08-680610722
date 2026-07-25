@@ -6,7 +6,7 @@
 
 ชื่อ-สกุล : ศุภพิชญ์ ไชยตาล
 
-Vercel URL : https://lab07-680610722.vercel.app/
+Vercel URL : https://lab08-680610722-vd5a.vercel.app/
 
 ---
 
