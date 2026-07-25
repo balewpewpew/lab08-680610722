@@ -24,7 +24,7 @@ router.get("/enrollments", (req: Request, res: Response) => {
     if (result.success && result2.success) {
       return res.status(400).json({
         ok: false,
-        message: "Please provide either studentId or courseNo and not both!",
+        message: "Please provide either studentId or courseId and not both!",
       });
     } else if (result.success) {
       const targetCourseId = Number(result.data);
@@ -55,7 +55,7 @@ router.get("/enrollments", (req: Request, res: Response) => {
       const foundCourses = courses
         .filter((c) => courseIdList.includes(c.courseId))
         .map((c) => ({
-          courseNo: String(c.courseId),
+          courseId: String(c.courseId),
           title: c.courseTitle,
         }));
 
@@ -66,7 +66,7 @@ router.get("/enrollments", (req: Request, res: Response) => {
     } else {
       return res.status(200).json({
         ok: false,
-        message: "Please provide either studentId or courseNo and not both!",
+        message: "Please provide either studentId or courseId and not both!",
       });
     }
   } catch (err) {
