@@ -14,7 +14,6 @@ import { students, courses, enrollments } from "../db/db.js";
 const router = Router();
 
 // GET /api/v1/enrollments
-// get students (by program)
 router.get("/enrollments", (req: Request, res: Response) => {
   try {
     const courseId = req.query.courseId;
@@ -33,7 +32,6 @@ router.get("/enrollments", (req: Request, res: Response) => {
         (e) => e.courseId === targetCourseId
       );
       const studentIdList = matchedEnrollments.map((e) => e.studentId);
-      console.log(studentIdList);
       const foundStudents = students
         .filter((std) => studentIdList.includes(String(std.studentId)))
         .map((std) => ({
@@ -42,7 +40,6 @@ router.get("/enrollments", (req: Request, res: Response) => {
           lastName: std.lastName,
           program: std.program,
         }));
-      console.log(foundStudents);
 
       return res.status(200).json({
         ok: true,
