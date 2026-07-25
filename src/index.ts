@@ -27,7 +27,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Lab08 API services");
 });
 
-app.get("/me", (req: Request, res: Response) => {
+app.get("/api/me", (req: Request, res: Response) => {
   res.status(200).json({
     ok: true,
     fullname: "Supapit Chaitan",
