@@ -33,15 +33,16 @@ router.get("/enrollments", (req: Request, res: Response) => {
         (e) => e.courseId === targetCourseId
       );
       const studentIdList = matchedEnrollments.map((e) => e.studentId);
-
+      console.log(studentIdList);
       const foundStudents = students
-        .filter((std) => studentIdList.includes(std.studentId))
+        .filter((std) => studentIdList.includes(String(std.studentId)))
         .map((std) => ({
           studentId: std.studentId,
           firstName: std.firstName,
           lastName: std.lastName,
           program: std.program,
         }));
+      console.log(foundStudents);
 
       return res.status(200).json({
         ok: true,

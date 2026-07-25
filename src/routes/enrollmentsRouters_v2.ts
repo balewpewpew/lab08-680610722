@@ -8,7 +8,7 @@ import { enrollments } from "../db/db.js";
 const router = Router();
 
 // DELETE /api/v2/enrollments
-router.delete("/", (req: Request, res: Response) => {
+router.delete("/enrollments", async (req: Request, res: Response) => {
   try {
     const parseResult = zEnrollmentBody.safeParse(req.body);
 
@@ -19,11 +19,10 @@ router.delete("/", (req: Request, res: Response) => {
         errors: parseResult.error.issues[0]?.message,
       });
     }
-
+    
     const { studentId, courseId } = parseResult.data;
     const targetCourseId = Number(courseId);
 
-    // Find index of matching enrollment in DB.enrollments
     const foundIndex = enrollments.findIndex(
       (e) => e.studentId === studentId && e.courseId === (targetCourseId)
     );
