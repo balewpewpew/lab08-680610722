@@ -3,18 +3,12 @@ import {
   zEnrollmentBody
 } from "../libs/zodValidators.js";
 
-import type { Student } from "../libs/types.js";
-
-import notFoundMiddleware from "../middlewares/notFoundMiddleware.js";
-
-// import database
-import { readDataFile, writeDataFile } from "../db/db_transactions.js";
+import { enrollments } from "../db/db.js";
 
 const router = Router();
 
-
 // DELETE /api/v2/enrollments
-router.delete("/enrollments", async (req: Request, res: Response) => {
+router.delete("/", (req: Request, res: Response) => {
   try {
     const parseResult = zEnrollmentBody.safeParse(req.body);
 
@@ -26,10 +20,10 @@ router.delete("/enrollments", async (req: Request, res: Response) => {
       });
     }
 
-    const enrollments = await readDataFile();
     const { studentId, courseId } = parseResult.data;
     const targetCourseId = Number(courseId);
 
+    // Find index of matching enrollment in DB.enrollments
     const foundIndex = enrollments.findIndex(
       (e) => e.studentId === studentId && e.courseId === (targetCourseId)
     );
@@ -41,6 +35,7 @@ router.delete("/enrollments", async (req: Request, res: Response) => {
       });
     }
 
+    // Delete matching enrollment from array
     enrollments.splice(foundIndex, 1);
 
     return res.status(200).json({

@@ -10,13 +10,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const DATA_FILE_PATH = `${__dirname}/db_enrollment.json`;
 
-export async function readDataFile(): Promise<Enrollment[]> {
+export async function readDataFile(): Promise<Student[]> {
   try {
     console.log(DATA_FILE_PATH);
     const data = await fs.readFile(DATA_FILE_PATH, {
       encoding: "utf8",
     });
-    return JSON.parse(data) as Enrollment[];
+    return JSON.parse(data) as Student[];
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") {
       console.warn("Data file not found, returning empty array.");
@@ -27,7 +27,7 @@ export async function readDataFile(): Promise<Enrollment[]> {
   }
 }
 
-export async function writeDataFile(data: Enrollment[]): Promise<void> {
+export async function writeDataFile(data: Student[]): Promise<void> {
   try {
     const jsonString = JSON.stringify(data, null, 2); // null, 2 for pretty printing
     await fs.writeFile(DATA_FILE_PATH, jsonString, { encoding: "utf8" });
