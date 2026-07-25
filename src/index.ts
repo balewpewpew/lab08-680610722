@@ -6,9 +6,8 @@ import invalidJsonMiddleware from "./middlewares/invalidJsonMiddleware.js";
 import notFoundMiddleware from "./middlewares/notFoundMiddleware.js";
 
 // import routes
-import studentRouter_v2 from "./routes/studentsRoutes_v2.js";
-import studentRouter_v3 from "./routes/studentsRoutes_v3.js";
-import courseRouter_v2 from "./routes/coursesRouters_v2.js";
+import enrollmentRouter_v1 from "./routes/enrollmentsRouters_v1.js";
+import enrollmentRouter_v2 from "./routes/enrollmentsRouters_v2.js";
 
 const app = express();
 const port = 3000;
@@ -25,26 +24,19 @@ app.use(invalidJsonMiddleware);
 
 // Endpoints
 app.get("/", (req: Request, res: Response) => {
-  res.send("Lecture18 API services");
+  res.send("Lab08 API services");
 });
 
 app.get("/me", (req: Request, res: Response) => {
   res.status(200).json({
-    success: true,
-    message: "Student Information",
-    data: {
-      studentId: "600610999",
-      firstName: "Dome",
-      lastName: "Potikanond",
-      program: "CPE",
-      section: "001",
-    },
+    ok: true,
+    fullname: "Supapit Chaitan",
+    studentId: "680610722"
   });
 });
 
-app.use("/api/v2/students", studentRouter_v2);
-app.use("/api/v3/students", studentRouter_v3);
-app.use("/api/v2/courses", courseRouter_v2);
+app.use("/api/v1", enrollmentRouter_v1);
+app.use("/api/v2", enrollmentRouter_v2);
 
 // endpoint check middleware
 app.use(notFoundMiddleware);

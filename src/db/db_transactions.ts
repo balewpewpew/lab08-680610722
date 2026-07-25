@@ -1,6 +1,6 @@
 import * as fs from "fs/promises"; // For promise-based fs methods
 // import * as path from "path";
-import { type Student } from "../libs/types.js";
+import { type Enrollment, type Student } from "../libs/types.js";
 
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -8,15 +8,15 @@ import { dirname } from "path";
 // Define __dirname for ES module scope
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const DATA_FILE_PATH = `${__dirname}/db_students.json`;
+const DATA_FILE_PATH = `${__dirname}/db_enrollment.json`;
 
-export async function readDataFile(): Promise<Student[]> {
+export async function readDataFile(): Promise<Enrollment[]> {
   try {
     console.log(DATA_FILE_PATH);
     const data = await fs.readFile(DATA_FILE_PATH, {
       encoding: "utf8",
     });
-    return JSON.parse(data) as Student[];
+    return JSON.parse(data) as Enrollment[];
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") {
       console.warn("Data file not found, returning empty array.");
@@ -27,7 +27,7 @@ export async function readDataFile(): Promise<Student[]> {
   }
 }
 
-export async function writeDataFile(data: Student[]): Promise<void> {
+export async function writeDataFile(data: Enrollment[]): Promise<void> {
   try {
     const jsonString = JSON.stringify(data, null, 2); // null, 2 for pretty printing
     await fs.writeFile(DATA_FILE_PATH, jsonString, { encoding: "utf8" });
@@ -36,3 +36,6 @@ export async function writeDataFile(data: Student[]): Promise<void> {
     throw error;
   }
 }
+
+
+
