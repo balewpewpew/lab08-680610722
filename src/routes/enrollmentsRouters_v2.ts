@@ -19,7 +19,7 @@ router.delete("/enrollments", async (req: Request, res: Response) => {
         errors: parseResult.error.issues[0]?.message,
       });
     }
-    
+
     const { studentId, courseId } = parseResult.data;
     const targetCourseId = Number(courseId);
 
@@ -33,8 +33,7 @@ router.delete("/enrollments", async (req: Request, res: Response) => {
         message: "Enrollment does not exist",
       });
     }
-
-    // Delete matching enrollment from array
+    
     enrollments.splice(foundIndex, 1);
 
     return res.status(200).json({
